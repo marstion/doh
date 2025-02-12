@@ -178,9 +178,13 @@ which can be piped to other commands (e.g. jq) or redirected to a file.`,
 
 func init() {
 	defaultServers := []string{
-		doh.Google,
-		doh.Cloudflare,
-		doh.Quad9,
+		// doh.Google,
+		// doh.Cloudflare,
+		// doh.Quad9,
+		doh.Aliyun,
+		doh.Dnspod,
+		doh.360DNS,
+		doh.1111DNS,
 	}
 
 	CommandQuery.Flags().String("type", "A", "dns record type to query for each domain, such as A, AAAA, MX, etc.")
