@@ -183,8 +183,6 @@ func init() {
 		// doh.Quad9,
 		doh.Aliyun,
 		doh.Dnspod,
-		doh.360DNS,
-		doh.1111DNS,
 	}
 
 	CommandQuery.Flags().String("type", "A", "dns record type to query for each domain, such as A, AAAA, MX, etc.")

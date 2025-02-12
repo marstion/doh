@@ -45,8 +45,6 @@ type KnownServer = string
 var (
 	Aliyun     KnownServer = "https://223.5.5.5/dns-query"
 	Dnspod     KnownServer = "https://1.12.12.12/dns-query"
-	360DNS     KnownServer = "https://doh.360.cn/dns-query"
-	1111DNS    KnownServer = "https://1.1.1.1/dns-query"
 
 	Google     KnownServer = "https://dns.google.com/resolve"
 	Cloudflare KnownServer = "https://cloudflare-dns.com/dns-query"

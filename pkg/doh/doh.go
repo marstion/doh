@@ -27,8 +27,6 @@ type KnownServerURL = string
 const (
 	Aliyun     KnownServerURL = "https://223.5.5.5/dns-query"
 	Dnspod     KnownServerURL = "https://1.12.12.12/dns-query"
-	360DNS     KnownServerURL = "https://doh.360.cn/dns-query" 
-	1111DNS    KnownServerURL = "https://1.1.1.1/dns-query"
 
 	Google     KnownServerURL = "https://dns.google/dns-query"
 	Cloudflare KnownServerURL = "https://cloudflare-dns.com/dns-query"
@@ -47,8 +45,6 @@ const (
 var KnownServerURLs = []KnownServerURL{
 	Aliyun,
 	Dnspod,
-	360DNS,
-	1111DNS,
 
 	Google,
 	Cloudflare,
