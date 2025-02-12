@@ -1,8 +1,8 @@
 # doh
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/marstion/doh_client/blob/master/LICENSE)
-[![go report](https://goreportcard.com/badge/github.com/marstion/doh_client)](https://goreportcard.com/report/github.com/marstion/doh_client)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/marstion/doh_client/pulls)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/marstion/doh/blob/master/LICENSE)
+[![go report](https://goreportcard.com/badge/github.com/marstion/doh)](https://goreportcard.com/report/github.com/marstion/doh)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/marstion/doh/pulls)
 
 > 🍩  DNS over HTTPs command-line client
 
@@ -16,7 +16,7 @@ Using [`cloudflare`](https://developers.cloudflare.com/1.1.1.1/dns-over-https/),
 To get started, you will need [`go`](https://golang.org/doc/install) installed and properly configured.
 
 ```shell
-$ go install -v github.com/marstion/doh_client@latest
+$ go install -v github.com/marstion/doh@latest
 ```
 
 # Help Menus

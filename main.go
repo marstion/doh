@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/marstion/doh_client/internal/cli"
+	"github.com/marstion/doh/internal/cli"
 )
 
 func main() {

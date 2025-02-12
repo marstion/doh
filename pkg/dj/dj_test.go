@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/hashicorp/go-cleanhttp"
-	"github.com/marstion/doh_client/pkg/dj"
+	"github.com/marstion/doh/pkg/dj"
 )
 
 func TestQuery(t *testing.T) {

@@ -1,4 +1,4 @@
-module github.com/marstion/doh_client
+module github.com/marstion/doh
 
 go 1.21
 

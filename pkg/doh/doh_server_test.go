@@ -11,7 +11,7 @@ import (
 
 	"github.com/hashicorp/go-cleanhttp"
 	"github.com/miekg/dns"
-	"github.com/marstion/doh_client/pkg/doh"
+	"github.com/marstion/doh/pkg/doh"
 )
 
 func TestNewServer(t *testing.T) {

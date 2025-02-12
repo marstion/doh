@@ -14,7 +14,7 @@ import (
 	"strings"
 
 	"github.com/miekg/dns"
-	"github.com/marstion/doh_client/pkg/dj"
+	"github.com/marstion/doh/pkg/dj"
 )
 
 // KnownServer is a known DoH server URL.

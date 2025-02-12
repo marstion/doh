@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/miekg/dns"
-	"github.com/marstion/doh_client/internal/cli"
-	"github.com/marstion/doh_client/pkg/doh"
+	"github.com/marstion/doh/internal/cli"
+	"github.com/marstion/doh/pkg/doh"
 )
 
 func testCommand(t *testing.T, args ...string) io.Reader {
