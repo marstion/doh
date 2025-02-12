@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/picatz/doh/internal/cli"
+	"github.com/marstion/doh_client/internal/cli"
 )
 
 func main() {

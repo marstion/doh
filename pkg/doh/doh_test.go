@@ -9,8 +9,8 @@ import (
 	"github.com/hashicorp/go-cleanhttp"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/miekg/dns"
-	"github.com/picatz/doh/pkg/dj"
-	"github.com/picatz/doh/pkg/doh"
+	"github.com/marstion/doh_client/pkg/dj"
+	"github.com/marstion/doh_client/pkg/doh"
 )
 
 // queryTable is a table-driven test for testing DNS queries
