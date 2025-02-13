@@ -49,10 +49,19 @@ jobs:
           echo "GOOS: $GOOS, GOARCH: $GOARCH, RELEASE_NAME: $_NAME"
           echo "ASSET_NAME=$_NAME" >> $GITHUB_ENV
 
+      - name: Create tag
+        id: create_tag
+        run: |
+          ls -a && pwd && \
+          tag_name="v1.0.${{ github.run_number }}" && \
+          git tag $tag_name && \
+          git push origin $tag_name 
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.23'
+
       - name: Get project dependencies
         run: go mod download
       - name: Build
