@@ -1,50 +1,113 @@
-name: "build"
+name: Build & Release
 
 on:
-  # TODO: move to "main" branch
+  workflow_dispatch:
   push:
     branches:
-      - "master"
+      - main
+    tags:
+      - "v*"
+    paths:
+      - "**/*.go"
+      - "go.mod"
+      - "go.sum"
+      - ".github/workflows/*.yml"
   pull_request:
-    branches:
-      - "master"
-
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**/*.go"
+      - "go.mod"
+      - "go.sum"
+      - ".github/workflows/*.yml"
 jobs:
-  run:
+  build:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        runs-on: [ubuntu-latest, macos-latest, windows-latest]
-
-    runs-on: ${{ matrix.runs-on }}
+        # Include amd64 on all platforms.
+        goos: [windows, linux, darwin]
+        goarch: [amd64, 386]
+        exclude:
+          # Exclude i386 on darwin and dragonfly.
+          - goarch: 386
+            goos: dragonfly
+          - goarch: 386
+            goos: darwin
+    env:
+      GOOS: ${{ matrix.goos }}
+      GOARCH: ${{ matrix.goarch }}
+      CGO_ENABLED: 0
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+      - name: Show workflow information
+        run: |
+          if [ "$GOOS" == "windows" ]; then
+            export _NAME="$_NAME.exe"
+          fi
+          echo "GOOS: $GOOS, GOARCH: $GOARCH, RELEASE_NAME: $_NAME"
 
-    - name: "Setup Go"
-      uses: actions/setup-go@v5
-      with:
-        go-version-file: "go.mod"
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - name: Get project dependencies
+        run: go mod download
+      - name: Build
+        run: |
+          go build -o dist/${ASSET_NAME} 
 
-    - name: "Build"
-      run: |
-        go build -v .
+      - name: Upload files to Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ASSET_NAME }}
+          path: |
+            dist/${{ env.ASSET_NAME }}
 
-    # - name: "Test"
-    #   run: |
-    #     go test -v ./...
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with: # 将下述可执行文件 release 上去
+          draft: true # Release草稿
+          files: |
+            dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-    # 上传附件
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: doh-${{ matrix.runs-on }}
-        path: doh-${{ matrix.runs-on }}
+  # publish-new-formula:
+  #   needs: build
+  #   # The type of runner that the job will run on
+  #   runs-on: ubuntu-latest
+  #   if: startsWith(github.ref, 'refs/tags/v')
 
-    # 发布release版本
-    - name: Release version
-      uses: ncipollo/release-action@v1
-      if: github.event_name == 'release'
-      with:
-        allowUpdates: true
-        artifacts: snow-${{ matrix.runs-on }}
-        token: ${{ secrets.TOKEN }}
- 
+  #   # Steps represent a sequence of tasks that will be executed as part of the job
+  #   steps:
+  #     # Runs a single command using the runners shell
+  #     - name: config git
+  #       run: |
+  #         git config --global user.email "${{ secrets.git_mail }}"
+  #         git config --global user.name "${{ secrets.git_name }}"
+  #     - name: Clone repo
+  #       run: |
+  #         git clone https://github.com/nxtrace/homebrew-nexttrace.git
+  #     - name: Exec scipt
+  #       run: |
+  #         cd homebrew-nexttrace
+  #         bash genFormula.sh
+  #     # - name: setup SSH keys and known_hosts
+  #     #   run: |
+  #     #     mkdir -p ~/.ssh
+  #     #     ssh-keyscan github.com >> ~/.ssh/known_hosts
+  #     #     ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+  #     #     ssh-add - <<< "${{ secrets.ID_RSA }}"
+  #     #   env:
+  #     #     SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+  #     - name: Git Push
+  #       run: |
+  #         cd homebrew-nexttrace
+  #         git commit -am 'Publish a new version with Formula' || true
+  #         git remote set-url origin https://${{ secrets.gt_token }}@github.com/nxtrace/homebrew-nexttrace.git
+          git push
+        # env:
+        #   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      - run: echo "🍏 This job's status is ${{ job.status }}."
