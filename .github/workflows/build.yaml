@@ -55,7 +55,8 @@ jobs:
           ls -a && pwd && \
           tag_name="v1.0.${{ github.run_number }}" && \
           git tag $tag_name && \
-          git push origin $tag_name 
+          git push origin $tag_name && \
+          git tag
 
       - name: Set up Go
         uses: actions/setup-go@v5
