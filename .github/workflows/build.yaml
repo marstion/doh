@@ -52,11 +52,9 @@ jobs:
       - name: Create tag
         id: create_tag
         run: |
-          ls -a && pwd && \
-          tag_name="v1.0.${{ github.run_number }}" && \
-          git tag $tag_name && \
-          git push origin $tag_name && \
           git tag
+          tag_name="v1.0.${{ github.run_number }}" && \
+          [ $(git tag | wc -l) -eq 0 ] && git tag $tag_name 
 
       - name: Set up Go
         uses: actions/setup-go@v5
