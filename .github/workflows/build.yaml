@@ -49,12 +49,12 @@ jobs:
           echo "GOOS: $GOOS, GOARCH: $GOARCH, RELEASE_NAME: $_NAME"
           echo "ASSET_NAME=$_NAME" >> $GITHUB_ENV
 
-      - name: Create tag
-        id: create_tag
-        run: |
-          git tag
-          tag_name="v1.0.${{ github.run_number }}" && \
-          [ $(git tag | wc -l) -eq 0 ] && git tag $tag_name 
+      #- name: Create tag
+      #  id: create_tag
+      #  run: |
+      #    git tag
+      #    tag_name="v1.0.${{ github.run_number }}" && \
+      #    [ $(git tag | wc -l) -eq 0 ] && git tag $tag_name 
 
       - name: Set up Go
         uses: actions/setup-go@v5
