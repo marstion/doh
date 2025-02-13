@@ -47,6 +47,7 @@ jobs:
             export _NAME="$_NAME.exe"
           fi
           echo "GOOS: $GOOS, GOARCH: $GOARCH, RELEASE_NAME: $_NAME"
+          echo "ASSET_NAME=$_NAME" >> $GITHUB_ENV
 
       - name: Set up Go
         uses: actions/setup-go@v5
