@@ -1,13 +1,13 @@
 name: "Test"
 
-on:
-  # TODO: move to "main" branch
-  push:
-    branches:
-      - "master"
-  pull_request:
-    branches:
-      - "master"
+# on:
+#   # TODO: move to "main" branch
+#   push:
+#     branches:
+#       - "master"
+#   pull_request:
+#     branches:
+#       - "master"
 
 jobs:
   run:
