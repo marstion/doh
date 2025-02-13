@@ -13,10 +13,9 @@ jobs:
   run:
     strategy:
       matrix:
-        goos: [linux, darwin, windows]
-        goarch: ["386", amd64, arm64]
+        runs-on: [ubuntu-latest, macos-latest, windows-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
     steps:
     - uses: actions/checkout@v4
 
@@ -35,10 +34,10 @@ jobs:
 
     # 上传附件
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: doh-${{ matrix.archive-name }}
-        path: doh-${{ matrix.archive-name }}
+        name: doh-${{ matrix.runs-on }}
+        path: doh-${{ matrix.runs-on }}
 
     # 发布release版本
     - name: Release version
@@ -46,6 +45,6 @@ jobs:
       if: github.event_name == 'release'
       with:
         allowUpdates: true
-        artifacts: snow-${{ matrix.archive-name }}
+        artifacts: snow-${{ matrix.runs-on }}
         token: ${{ secrets.TOKEN }}
  
